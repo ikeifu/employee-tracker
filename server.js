@@ -146,10 +146,30 @@ function start() {
   .then(function (answer) {
     if (answer.userAction === "View Employees") {
       viewEmployees();
+    } else if (answer.userAction === "View Employees by Manager") {
+      viewEmployeesByManager();
     }
   });
 };
 
 // Assign constructor functions to match inquirer options
+function viewEmployees() {
+  connection.query(sqlQueries.viewEmployees(), function (err, results) {
+    if (err) throw err;
+    console.table(results);
+    start();
+  });
+};
+
+function viewEmployeesByManager() {
+  connection.query(sqlQueries.viewEmployeesByManager(), function (
+    err,
+    results
+  ) {
+    if (err) throw err;
+    console.table(results);
+    start();
+  });
+};
 
 // Call functions
