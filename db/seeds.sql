@@ -28,6 +28,18 @@ SELECT title
     ORDER BY department_id ASC, title ASC;
 
 -- INSERT INTO employee
+USE employee_DB;
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Maeby', 'Fünke', 3, null);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Gob', 'Bluth', 1, 1);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Marta', 'Estrella', 2, 2);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Rebel', 'Alley', 4, 1);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Lucille', 'Austero', 5, null);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Tony', 'Wonder', 6, null);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Barry', 'Zuckerkorn', 7, 6);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Stan', 'Sitwell', 3, 3);
+
+USE employee_DB;
+SELECT * FROM employee;
 
 -- For viewing data:
 -- Viewing all employees
