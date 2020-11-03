@@ -78,10 +78,16 @@ SELECT name AS 'Department Name'
         FROM department
         ORDER BY name ASC;
 
--- Viewing department budgets
-
 -- For updating queries:
 -- Setting employee role
+USE employee_DB;
+UPDATE employee e
+    SET
+        e.role_id = ?
+    WHERE
+        e.id = ?;
+
+USE employee_DB; SELECT * FROM employee WHERE id = 12;
 
 -- Setting employee managers
 
