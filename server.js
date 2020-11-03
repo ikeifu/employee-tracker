@@ -83,9 +83,15 @@ function init() {
   employeeListObject = {};
   departmentList = [];
   departmentListObject = {};
-  
+
     // Get Role IDS and titles
-  
+  connection.query(sqlQueries.utilGetRoleIdsTitles(), function (err, results) {
+    if (err) throw err;
+    for (let i = 0; i < results.length; i++) {
+      roleList.push(results[i].title);
+    }
+    roleListObject = results;
+  });
 
     // Get employee IDs and names
 
