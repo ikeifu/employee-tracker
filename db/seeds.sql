@@ -73,6 +73,10 @@ SELECT IFNULL(CONCAT(m.first_name, ' ', m.last_name), '') AS 'Manager', CONCAT(e
     ORDER BY m.first_name ASC;
 
 -- Viewing departments
+USE employee_DB;
+SELECT name AS 'Department Name'
+        FROM department
+        ORDER BY name ASC;
 
 -- Viewing department budgets
 
