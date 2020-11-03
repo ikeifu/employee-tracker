@@ -57,6 +57,23 @@ function findDepartmentId(namedKey, objectArray) {
 };
 
 // Figlet Word art / top banner ( runApp() )
+const runApp = () => {
+  // Create "Welcome to the Label" ASCII with Figlet
+  figlet("Welcome to\nthe Label", function (err, data) {
+    if (err) {
+      console.log("Something went wrong...");
+      console.dir(err);
+      return;
+    }
+    // Display the art along with a mini app description
+    console.log(
+      data +
+        "\n\nEdit employee information within your record label\nto organize your business.\n" +
+        "\nBegin:\n"
+    );
+    init();
+  });
+};
 
 // Populate options list
 
