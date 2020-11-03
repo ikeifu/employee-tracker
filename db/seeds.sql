@@ -65,6 +65,7 @@ SELECT d.name, CONCAT(e.first_name, ' ', e.last_name) AS 'Employee', r.title, d.
 
 -- Viewing all employees by manager
 USE employee_DB;
+-- https://www.w3schools.com/sql/func_mysql_ifnull.asp
 SELECT IFNULL(CONCAT(m.first_name, ' ', m.last_name), '') AS 'Manager', CONCAT(e.first_name, ' ', e.last_name) AS 'Employee', d.name, r.title, d.name, r.salary
     FROM employee e
         LEFT JOIN employee m ON m.id = e.manager_id
@@ -101,5 +102,14 @@ UPDATE employee e
 USE employee_DB; SELECT * FROM employee WHERE id = 12;
 
 -- Queries to add new employees
+USE employee_DB;
+SELECT e.id, e.first_name, e.last_name
+    FROM employee e
+    ORDER BY e.first_name ASC;
+
+USE employee_DB;
+SELECT r.id, r.title
+    FROM role r
+    ORDER BY r.title ASC;
 
 -- Queries to add new departments
