@@ -43,6 +43,17 @@ SELECT * FROM employee;
 
 -- For viewing data:
 -- Viewing all employees
+USE employee_DB;
+-- The CONCAT() function adds two or more expressions together. For reference: https://www.w3schools.com/sql/func_mysql_concat.asp
+SELECT e.id, CONCAT(e.first_name, ' ', e.last_name) AS 'Employee', d.name AS 'Department', r.title, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS 'Manager'
+    FROM employee e
+        -- Joining
+        LEFT JOIN employee m ON m.id = e.manager_id
+        LEFT JOIN Role r ON e.role_id = r.id
+        LEFT JOIN Department d ON d.id = r.department_id
+    -- ORDER BY e.id in ascending order
+    ORDER BY e.id ASC;
+
 
 -- Viewing all employees by department
 
