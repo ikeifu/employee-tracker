@@ -83,6 +83,7 @@ SELECT name AS 'Department Name'
 USE employee_DB;
 UPDATE employee e
     SET
+        -- ? is a placeholder. For reference: https://stackoverflow.com/questions/675010/what-is-the-question-marks-significance-in-mysql-at-where-column
         e.role_id = ?
     WHERE
         e.id = ?;
@@ -90,6 +91,14 @@ UPDATE employee e
 USE employee_DB; SELECT * FROM employee WHERE id = 12;
 
 -- Setting employee managers
+USE employee_DB;
+UPDATE employee e
+    SET
+        e.manager_id = ?
+    WHERE
+        e.id = ?;
+
+USE employee_DB; SELECT * FROM employee WHERE id = 12;
 
 -- Queries to add new employees
 
