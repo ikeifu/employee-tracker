@@ -77,7 +77,15 @@ const runApp = () => {
 
 // Populate options list ( init() )
 function init() {
+  roleList = [];
+  roleListObject = {};
+  employeeList = [];
+  employeeListObject = {};
+  departmentList = [];
+  departmentListObject = {};
+  
     // Get Role IDS and titles
+  
 
     // Get employee IDs and names
 
