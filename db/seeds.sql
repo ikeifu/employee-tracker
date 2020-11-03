@@ -54,8 +54,14 @@ SELECT e.id, CONCAT(e.first_name, ' ', e.last_name) AS 'Employee', d.name AS 'De
     -- ORDER BY e.id in ascending order
     ORDER BY e.id ASC;
 
-
 -- Viewing all employees by department
+USE employee_DB;
+SELECT d.name, CONCAT(e.first_name, ' ', e.last_name) AS 'Employee', r.title, d.name, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS 'Manager'
+    FROM employee e
+        LEFT JOIN employee m ON m.id = e.manager_id
+        JOIN Role r ON e.role_id = r.id
+        JOIN Department d ON d.id = r.department_id
+    ORDER BY d.name ASC;
 
 -- Viewing all employees by manager
 
