@@ -104,7 +104,15 @@ function init() {
   });
 
     // Get Department IDs and names
-  
+  connection.query(sqlQueries.utilGetDepartmentIdsNames(), function (err, results) {
+    if (err) throw err;
+    for (let i = 0; i < results.length; i++) {
+      departmentList.push(results[i].name);
+    }
+    departmentListObject = results;
+  });
+
+  start();
 };
 
 // Inquirer prompt
