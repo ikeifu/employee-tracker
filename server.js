@@ -116,6 +116,34 @@ function init() {
 };
 
 // Inquirer prompt
+function start() {
+  inquirer.prompt({
+    name: "userAction",
+    type: "list",
+    message: "What would you like to do?",
+    choices: [
+      "View Employees",
+      "View Employees by Manager",
+      "View Employees by Department",
+      "View Departments",
+      "View Roles",
+      new inquirer.Separator(),
+      "Add Employee",
+      "Add Department",
+      "Add Role",
+      new inquirer.Separator(),
+      "Update Employee Role",
+      "Update Employee Manager",
+      new inquirer.Separator(),
+      "Remove Employee",
+      "Remove Department",
+      "Remove Role",
+      new inquirer.Separator(),
+      "Exit",
+      new inquirer.Separator(),
+    ],
+  });
+};
 
 // Assign constructor functions to match inquirer options
 
