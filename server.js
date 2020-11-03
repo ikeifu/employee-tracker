@@ -14,10 +14,23 @@ let departmentList;
 let departmentListObject;
 
 // Connection to MySQL
+var connection = mysql.createConnection({
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "j0rd@n12345",
+  database: "employee_DB",
+});
+
+connection.connect(function (err) {
+  if (err) throw err;
+  // start();
+  runApp();
+});
 
 // Agnostic functions to search IDs
 
-// Figlet Word art / top banner
+// Figlet Word art / top banner ( runApp() )
 
 // Populate options list
 
