@@ -94,8 +94,17 @@ function init() {
   });
 
     // Get employee IDs and names
+  connection.query(sqlQueries.utilGetEmployeeIdsNames(), function (err, results) {
+    if (err) throw err;
+    employeeList.push("None");
+    for (let i = 0; i < results.length; i++) {
+      employeeList.push(results[i].first_name + " " + results[i].last_name);
+    }
+    employeeListObject = results;
+  });
 
     // Get Department IDs and names
+  
 };
 
 // Inquirer prompt
