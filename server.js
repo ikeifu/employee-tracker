@@ -143,6 +143,11 @@ function start() {
       new inquirer.Separator(),
     ],
   });
+  .then(function (answer) {
+    if (answer.userAction === "View Employees") {
+      viewEmployees();
+    }
+  });
 };
 
 // Assign constructor functions to match inquirer options
