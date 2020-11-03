@@ -5,7 +5,13 @@ const consoleTable = require("console.table");
 const figlet = require("figlet");
 const sqlQueries = require("./lib/sql");
 
-// Globals
+// Globals - list and list objects
+let roleList;
+let roleListObject;
+let employeeList;
+let employeeListObject;
+let departmentList;
+let departmentListObject;
 
 // Connection to MySQL
 
