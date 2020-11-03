@@ -72,16 +72,17 @@ const runApp = () => {
         "\nBegin:\n"
     );
     init();
-  });
+  })
 };
 
-// Populate options list
+// Populate options list ( init() )
+function init() {
+    // Get Role IDS and titles
 
-// Get Role IDS and titles
+    // Get employee IDs and names
 
-// Get employee IDs and names
-
-// Get Department IDs and names
+    // Get Department IDs and names
+};
 
 // Inquirer prompt
 
