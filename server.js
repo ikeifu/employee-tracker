@@ -29,6 +29,32 @@ connection.connect(function (err) {
 });
 
 // Agnostic functions to search IDs
+    // findRoleId
+function findRoleId(namedKey, objectArray) {
+  for (var i = 0; i < objectArray.length; i++) {
+    if (objectArray[i].title === namedKey) {
+      return objectArray[i];
+    }
+  }
+};
+
+    // findEmployeeId
+function findEmployeeId(namedKey, objectArray) {
+  for (var i = 0; i < objectArray.length; i++) {
+    if (objectArray[i].first_name + " " + objectArray[i].last_name === namedKey.toString()) {
+      return objectArray[i].id;
+    }
+  }
+};
+
+    // findDepartmentId
+function findDepartmentId(namedKey, objectArray) {
+  for (var i = 0; i < objectArray.length; i++) {
+    if (objectArray[i].name === namedKey) {
+      return objectArray[i];
+    }
+  }
+};
 
 // Figlet Word art / top banner ( runApp() )
 
