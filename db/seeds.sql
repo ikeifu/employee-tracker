@@ -113,3 +113,15 @@ SELECT r.id, r.title
     ORDER BY r.title ASC;
 
 -- Queries to add new departments
+USE employee_DB;
+SELECT d.id, d.name
+        FROM department d
+        ORDER BY d.name ASC;
+
+USE employee_DB; SELECT * FROM role;
+USE employee_DB; SELECT * FROM employee;
+USE employee_DB; SELECT * FROM department;
+
+SELECT r.id, r.title
+            FROM role r
+            ORDER BY r.title ASC;
