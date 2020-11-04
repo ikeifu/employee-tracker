@@ -162,6 +162,8 @@ function start() {
       addRole();
     } else if (answer.userAction === "Update Employee Role") {
       updateEmployeeRole();
+    } else if (answer.userAction === "Update Employee Manager") {
+      updateEmployeeManager();
     }
   });
 };
@@ -366,6 +368,46 @@ function updateEmployeeRole() {
       function (err, results) {
         if (err) throw err;
         console.log("The role for " + answer.selectedEmployee + " has been changed to " + answer.selectedRole + ".");
+        init();
+      }
+    );
+  });
+};
+
+function updateEmployeeManager() {
+  inquirer.prompt([
+    {
+      message: "Which employee do you want to update?",
+      name: "selectedEmployee",
+      type: "list",
+      choices: employeeList,
+    },
+    {
+      message: "Select their new manager.",
+      name: "selectedManager",
+      type: "list",
+      choices: employeeList,
+    },
+  ])
+  .then(function (answer) {
+    var employeeIdToUpdate = findEmployeeId(
+      answer.selectedEmployee,
+      employeeListObject
+    )
+    ? findEmployeeId(answer.selectedEmployee, employeeListObject)
+    : null;
+    if (answer.selectedManager === answer.selectedEmployee) {
+      newManagerId = null;
+    } else if (findEmployeeId(answer.selectedManager, employeeListObject)) {
+      newManagerId = findEmployeeId(answer.selectedManager, employeeListObject);
+    } else {
+      newManagerId = null;
+    }
+    connection.query(
+      sqlQueries.updateEmployeeManager(newManagerId, employeeIdToUpdate),
+      function (err, results) {
+        if (err) throw err;
+        console.log("The manager for " + answer.selectedEmployee + " has been changed to " + answer.selectedManager + ".");
         init();
       }
     );
