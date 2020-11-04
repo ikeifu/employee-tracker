@@ -168,6 +168,10 @@ function start() {
       removeEmployee();
     } else if (answer.userAction === "Remove Department") {
       removeDepartment();
+    } else if (answer.userAction === "Remove Role") {
+      removeRole();
+    } else {
+      connection.end();
     }
   });
 };
@@ -474,4 +478,23 @@ function removeDepartment() {
   });
 };
 
-// Call functions
+function removeRole() {
+  inquirer.prompt([
+    {
+      message: "Which role do you want to remove?",
+      name: "removeRole",
+      type: "list",
+      choices: roleList,
+    },
+  ])
+  .then(function (answer) {
+    console.log(answer.removeRole);
+    var removeRoleId = findRoleId(answer.removeRole, roleListObject).id;
+    console.log(removeRoleId);
+    connection.query(sqlQueries.removeRole(removeRoleId), function (err, results) {
+      if (err) throw err;
+      console.log(answer.removeRole + " was removed from the database.");
+      init();
+    });
+  });
+};
