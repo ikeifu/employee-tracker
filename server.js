@@ -166,6 +166,8 @@ function start() {
       updateEmployeeManager();
     } else if (answer.userAction === "Remove Employee") {
       removeEmployee();
+    } else if (answer.userAction === "Remove Department") {
+      removeDepartment();
     }
   });
 };
@@ -442,6 +444,33 @@ function removeEmployee() {
           }
         );
     }
+  });
+};
+
+function removeDepartment() {
+  inquirer.prompt([
+    {
+      message: "Which department do you want to remove?",
+      name: "removeDepartment",
+      type: "list",
+      choices: departmentList,
+    },
+  ])
+  .then(function (answer) {
+    console.log(answer.removeDepartment);
+    var removeDepartmentId = findDepartmentId(
+      answer.removeDepartment,
+      departmentListObject
+    ).id;
+    console.log(removeDepartmentId);
+    connection.query(
+      sqlQueries.removeDepartment(removeDepartmentId),
+      function (err, results) {
+        if (err) throw err;
+        console.log(answer.removeDepartment + " was removed from the database.");
+        init();
+      }
+    );
   });
 };
 
