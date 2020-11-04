@@ -158,6 +158,8 @@ function start() {
       addEmployee();
     } else if (answer.userAction === "Add Department") {
       addDepartment();
+    } else if (answer.userAction === "Add Role") {
+      addRole();
     }
   });
 };
@@ -284,5 +286,56 @@ function addDepartment() {
     );
   });
 };
+
+function addRole() {
+  inquirer.prompt([
+    {
+      message: "What is the title?",
+      name: "newTitle",
+      validate: function validateFirstName(newTitle) {
+        return newTitle !== "";
+      },
+      type: "input",
+    },
+    {
+      message: "What is the salary?",
+      name: "newSalary",
+      validate: function validateLastName(newSalary) {
+        return newSalary !== "";
+      },
+      type: "input",
+    },
+    {
+      message: "Select a department:",
+      name: "newDepartment",
+      type: "list",
+      choices: function () {
+        var choiceArray = [];
+        for (var key in departmentListObject) {
+          choiceArray.push(departmentListObject[key].name);
+        }
+        return choiceArray;
+      },
+    },
+  ]);
+  .then (function (answer) {
+    var newRoleId = findDepartmentId(answer.newDepartment, departmentListObject).id;
+    connection.query(
+      sqlQueries.addRole(
+        answer.newTitle,
+        answer.newSalary,
+        newRoleId,
+        newRoleId
+      ),
+      function (err, results) {
+        if (err) throw err;
+        console.log(answer.newTitle + " added to the database.");
+        init();
+      }
+    );
+  });
+};
+
+
 
 // Call functions
