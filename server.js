@@ -152,6 +152,8 @@ function start() {
       viewEmployeesByDepartment();
     } else if (answer.userAction === "View Departments") {
       viewDepartments();
+    } else if (answer.userAction === "View Roles") {
+      viewRoles();
     }
   });
 };
@@ -183,6 +185,14 @@ function viewEmployeesByDepartment() {
 
 function viewDepartments() {
   connection.query(sqlQueries.viewDepartments(), function (err, results) {
+    if (err) throw err;
+    console.table(results);
+    start();
+  });
+};
+
+function viewRoles() {
+  connection.query(sqlQueries.viewRoles(), function (err, results) {
     if (err) throw err;
     console.table(results);
     start();
