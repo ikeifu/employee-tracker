@@ -156,6 +156,8 @@ function start() {
       viewRoles();
     } else if (answer.userAction === "Add Employee") {
       addEmployee();
+    } else if (answer.userAction === "Add Department") {
+      addDepartment();
     }
   });
 };
@@ -254,6 +256,29 @@ function addEmployee() {
       function (err, results) {
         if (err) throw err;
         console.log("Added " + answer.newFirstName + " " + answer.newLastName + " to the database.");
+        init();
+      }
+    );
+  });
+};
+
+function addDepartment() {
+  inquirer.prompt([
+    {
+      message: "What is the department name?",
+      name: "newDepartmentName",
+      validate: function validateFirstName(newDepartmentName) {
+        return newDepartmentName !== "";
+      },
+      type: "input",
+    },
+  ]);
+  .then(function (answer) {
+    connection.query(
+      sqlQueries.addDepartment(answer.newDepartmentName),
+      function (err, results) {
+        if (err) throw err;
+        console.log(answer.newDepartmentName + " added to the database.");
         init();
       }
     );
