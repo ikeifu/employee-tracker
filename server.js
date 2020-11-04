@@ -164,6 +164,8 @@ function start() {
       updateEmployeeRole();
     } else if (answer.userAction === "Update Employee Manager") {
       updateEmployeeManager();
+    } else if (answer.userAction === "Remove Employee") {
+      removeEmployee();
     }
   });
 };
@@ -411,6 +413,35 @@ function updateEmployeeManager() {
         init();
       }
     );
+  });
+};
+
+function removeEmployee() {
+  inquirer.prompt({
+    message: "Which employee do you want to remove?",
+    name: "employeeName",
+    type: "list",
+    choices: employeeList,
+  })
+  .then(function (answer) {
+    if (answer.employeeName === "None") {
+      start();
+    } else {
+        var employeeIdToRemove = findEmployeeId(
+          answer.employeeName,
+          employeeListObject
+        )
+        ? findEmployeeId(answer.employeeName, employeeListObject)
+        : null;
+        connection.query(
+          sqlQueries.removeEmployee(employeeIdToRemove),
+          function (err, results) {
+            if (err) throw err;
+            console.log(answer.employeeName + " removed from the database.");
+            init();
+          }
+        );
+    }
   });
 };
 
