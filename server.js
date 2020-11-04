@@ -142,7 +142,7 @@ function start() {
       "Exit",
       new inquirer.Separator(),
     ],
-  });
+  })
   .then(function (answer) {
     if (answer.userAction === "View Employees") {
       viewEmployees();
@@ -160,6 +160,8 @@ function start() {
       addDepartment();
     } else if (answer.userAction === "Add Role") {
       addRole();
+    } else if (answer.userAction === "Update Employee Role") {
+      updateEmployeeRole();
     }
   });
 };
@@ -241,7 +243,7 @@ function addEmployee() {
       type: "list",
       choices: employeeList,
     },
-  ]);
+  ])
   .then(function (answer) {
     var newRoleId = findRoleId(answer.newRole, roleListObject).id;
     var newManagerId = findEmployeeId(answer.newManager, employeeListObject)
@@ -274,7 +276,7 @@ function addDepartment() {
       },
       type: "input",
     },
-  ]);
+  ])
   .then(function (answer) {
     connection.query(
       sqlQueries.addDepartment(answer.newDepartmentName),
@@ -317,7 +319,7 @@ function addRole() {
         return choiceArray;
       },
     },
-  ]);
+  ])
   .then (function (answer) {
     var newRoleId = findDepartmentId(answer.newDepartment, departmentListObject).id;
     connection.query(
@@ -336,6 +338,38 @@ function addRole() {
   });
 };
 
-
+function updateEmployeeRole() {
+  inquirer.prompt([
+    {
+      message: "Which employee do you want to update?",
+      name: "selectedEmployee",
+      type: "list",
+      choices: employeeList,
+    },
+    {
+      message: "Select their new role.",
+      name: "selectedRole",
+      type: "list",
+      choices: roleList,
+    },
+  ])
+  .then(function (answer) {
+    var employeeIdToUpdate = findEmployeeId(
+      answer.selectedEmployee,
+      employeeListObject
+    )
+    ? findEmployeeId(answer.selectedEmployee, employeeListObject)
+    : null;
+    var newRoleId = findRoleId(answer.selectedRole, roleListObject).id;
+    connection.query(
+      sqlQueries.updateEmployeeRole(employeeIdToUpdate, newRoleId),
+      function (err, results) {
+        if (err) throw err;
+        console.log("The role for " + answer.selectedEmployee + " has been changed to " + answer.selectedRole + ".");
+        init();
+      }
+    );
+  });
+};
 
 // Call functions
