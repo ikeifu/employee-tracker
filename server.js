@@ -154,6 +154,8 @@ function start() {
       viewDepartments();
     } else if (answer.userAction === "View Roles") {
       viewRoles();
+    } else if (answer.userAction === "Add Employee") {
+      addEmployee();
     }
   });
 };
@@ -196,6 +198,65 @@ function viewRoles() {
     if (err) throw err;
     console.table(results);
     start();
+  });
+};
+
+function addEmployee() {
+  inquirer.prompt([
+    {
+      message: "What is the employee's first name?",
+      name: "newFirstName",
+      validate: function validateFirstName(name) {
+        return name !== "";
+      },
+      type: "input",
+    },
+    {
+      message: "What is the employee's last name?",
+      name: "newLastName",
+      validate: function validateLastName(name) {
+        return name !== "";
+      },
+      type: "input",
+    },
+    {
+      message: "What is the employee's role?",
+      name: "newRole",
+      type: "list",
+      choices: function () {
+        var choiceArray = [];
+        for (var key in roleListObject) {
+          choiceArray.push(roleListObject[key].title);
+        }
+        return choiceArray;
+      },
+    },
+    {
+      message: "Who is the employee's manager?",
+      name: "newManager",
+      type: "list",
+      choices: employeeList,
+    },
+  ]);
+  .then(function (answer) {
+    var newRoleId = findRoleId(answer.newRole, roleListObject).id;
+    var newManagerId = findEmployeeId(answer.newManager, employeeListObject)
+      ? findEmployeeId(answer.newManager, employeeListObject)
+      : null;
+
+    connection.query(
+      sqlQueries.addEmployee(
+        answer.newFirstName,
+        answer.newLastName,
+        newRoleId,
+        newManagerId
+      ),
+      function (err, results) {
+        if (err) throw err;
+        console.log("Added " + answer.newFirstName + " " + answer.newLastName + " to the database.");
+        init();
+      }
+    );
   });
 };
 
