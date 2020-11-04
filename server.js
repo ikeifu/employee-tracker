@@ -148,6 +148,8 @@ function start() {
       viewEmployees();
     } else if (answer.userAction === "View Employees by Manager") {
       viewEmployeesByManager();
+    } else if (answer.userAction === "View Employees by Department") {
+      viewEmployeesByDepartment();
     }
   });
 };
@@ -162,10 +164,15 @@ function viewEmployees() {
 };
 
 function viewEmployeesByManager() {
-  connection.query(sqlQueries.viewEmployeesByManager(), function (
-    err,
-    results
-  ) {
+  connection.query(sqlQueries.viewEmployeesByManager(), function (err, results) {
+    if (err) throw err;
+    console.table(results);
+    start();
+  });
+};
+
+function viewEmployeesByDepartment() {
+  connection.query(sqlQueries.viewEmployeesByDepartment(), function (err, results) {
     if (err) throw err;
     console.table(results);
     start();
